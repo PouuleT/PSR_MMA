@@ -28,7 +28,7 @@ public class Evt {
         if(this.what == false)
             txt= "Date = "+this.atime+"\tArrivee\tclient #"+this.id;
         else
-            txt="Date = "+this.dtime+"\tDepart\tclient #"+this.id+"arrive a t="+this.atime;
+            txt="Date = "+this.dtime+"\tDepart\tclient #"+this.id+"\tarrive a t="+this.atime;
 
         System.out.println(txt);
         return txt;
