@@ -5,8 +5,6 @@
 
 package psr_mma;
 
-import java.util.List;
-
 /**
  *
  * @author BEE Lucas
@@ -44,7 +42,6 @@ public class Evt {
     public Evt(boolean what, double atime) {
         globalId++;
         this.atime=atime;
-        this.dtime=dtime;
         this.id=globalId;
         this.what=what;
     }
