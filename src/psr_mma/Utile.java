@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package psr_mma;
 
@@ -14,5 +10,4 @@ public class Utile {
     public static double newDate(double oldDate, int psy){
         return oldDate + ((-1)*Math.log(1-Math.random()))/psy;
     }
-    
 }

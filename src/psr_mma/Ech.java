@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package psr_mma;
 
@@ -20,6 +16,8 @@ public class Ech {
 	static int mu=6;
 	static int duree=1000;
 	
+	static boolean display;
+	
     public static LinkedList<Evt> newEch() {
         LinkedList<Evt> l = new LinkedList<Evt>();
         
@@ -27,14 +25,10 @@ public class Ech {
     }
     
     public static void addNewArrivant(LinkedList<Evt> MMA) {
-    	//System.out.println("Un nouveau paquet arrive");
     	Evt.lastLanded =  Utile.newDate(Evt.lastLanded,lambda);
     	
-/*    	if(!MMA.isEmpty())
-    		Stats.withoutWait();
-    	else
-    		Stats.withWait();
-  */  	
+    	Stats.updateAverageNumber(true);
+    	
     	while(!MMA.isEmpty() && MMA.getFirst().what && MMA.getFirst().getDate() < Evt.lastLanded)
     		firstIsGone(MMA);
     	
@@ -52,12 +46,14 @@ public class Ech {
     }
     
     public static void firstPassThrough(LinkedList<Evt> MMA){
-    	//System.out.println("On fait passer le paquet");
     	Evt temp = MMA.getFirst();
 
     	MMA.removeFirst();
 
-    	temp.toString();
+    	// On affiche l'arrivée du paquet
+    	if(display)
+    		temp.toString();
+    	
     	if(Math.max(Evt.lastGone,temp.atime)==temp.atime)
     		Stats.withoutWait();
     	else
@@ -84,9 +80,11 @@ public class Ech {
     }
     
     public static void firstIsGone(LinkedList<Evt> MMA){
-    	//System.out.println("Le paquet est passé");
-    	MMA.getFirst().toString();
+    	//On affiche que le paquet part de la file
+    	if(display)
+    		MMA.getFirst().toString();
     	Stats.averageDuration(MMA.getFirst());
+    	Stats.updateAverageNumber(false);
     	MMA.removeFirst();
     }
     
@@ -103,11 +101,15 @@ public class Ech {
     
     public static void main(String[] args) {
 
+    	lambda = Integer.parseInt(args[1]);
+    	mu = Integer.parseInt(args[2]);
+    	duree = Integer.parseInt(args[3]);
+    	display = Boolean.parseBoolean(args[4]);
+    	
         LinkedList<Evt> MMA = Ech.newEch();                        // On initialise la liste chainée
         
         while((Evt.lastLanded < duree)||(!MMA.isEmpty())) {
         	if(MMA.isEmpty()) {
-        		
         		addNewArrivant(MMA);
         	}
         	else if((MMA.getFirst().what)&&(Evt.lastLanded < duree)) {
@@ -117,21 +119,8 @@ public class Ech {
         	else {
         		traiteFirst(MMA);
         	}
-        /*	System.out.println("Nouvelle boucle");
-        	MMA.toString();
-        	try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
         }
         Stats.afficheTheorique();
         Stats.afficheSimulation();
     }
-    
-
-    
-    
-
 }

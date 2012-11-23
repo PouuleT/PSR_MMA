@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package psr_mma;
 
@@ -45,6 +41,4 @@ public class Evt {
         this.id=globalId;
         this.what=what;
     }
-    
-
 }
